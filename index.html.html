@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axion Tech — Consulting | IT Services | Digital Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2545;
+    --navy-deep:#071A33;
+    --blue:#1E6FD9;
+    --teal:#00B8A9;
+    --ink:#12182B;
+    --bg:#F5F7FA;
+    --white:#FFFFFF;
+    --line:#E1E6ED;
+    --muted:#5B6472;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-0.01em;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .container{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(11,37,69,0.97);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:10px;color:var(--white);font-weight:700;font-size:20px;}
+  .logo .mark{
+    width:34px;height:34px;border-radius:8px;
+    background:linear-gradient(135deg,var(--blue),var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-weight:800;color:var(--white);font-size:16px;
+  }
+  .navlinks{display:flex;gap:36px;}
+  .navlinks a{
+    color:rgba(255,255,255,0.8);font-size:14.5px;font-weight:500;
+    transition:color .2s;
+  }
+  .navlinks a:hover{color:var(--white);}
+  .navlinks a.cta{
+    background:var(--teal);color:var(--navy-deep);
+    padding:9px 18px;border-radius:6px;font-weight:600;
+  }
+  .navlinks a.cta:hover{background:#00d6c4;color:var(--navy-deep);}
+  .navtoggle{display:none;}
+
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(0,184,169,0.25), transparent),
+      linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 60%, #0d3a66 100%);
+    color:var(--white);
+    padding:110px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right:-120px; top:-80px;
+    width:520px;height:520px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right:20px; top:60px;
+    width:340px;height:340px;border-radius:50%;
+    border:1px solid rgba(0,184,169,0.25);
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;padding:0 32px;position:relative;z-index:2;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+    color:var(--teal);letter-spacing:0.06em;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);}
+  .hero h1{
+    font-size:56px;font-weight:800;line-height:1.08;max-width:760px;
+    margin-bottom:22px;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p.lead{
+    font-size:19px;color:rgba(255,255,255,0.78);max-width:600px;margin-bottom:36px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:14px 28px;border-radius:6px;
+    font-weight:600;font-size:15px;transition:transform .15s, background .2s;
+  }
+  .btn-primary{background:var(--teal);color:var(--navy-deep);}
+  .btn-primary:hover{background:#00d6c4;transform:translateY(-1px);}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.35);color:var(--white);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);}
+
+  .stats{display:flex;gap:56px;margin-top:64px;flex-wrap:wrap;}
+  .stat .num{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:var(--white);}
+  .stat .label{font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px;}
+
+  /* SECTION HEADERS */
+  section{padding:88px 0;}
+  .section-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blue);
+    text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;
+  }
+  .section-head h2{font-size:36px;font-weight:800;color:var(--navy-deep);max-width:640px;}
+  .section-head p{color:var(--muted);max-width:560px;margin-top:14px;font-size:16px;}
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;
+  }
+  .service-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:32px 26px;transition:border-color .2s, transform .2s;
+  }
+  .service-card:hover{border-color:var(--teal);transform:translateY(-4px);}
+  .service-card .icon{
+    width:44px;height:44px;border-radius:9px;
+    background:linear-gradient(135deg, var(--blue), var(--teal));
+    margin-bottom:20px;
+  }
+  .service-card h3{font-size:18px;margin-bottom:10px;color:var(--navy-deep);}
+  .service-card p{font-size:14.5px;color:var(--muted);}
+
+  /* ABOUT */
+  .about{background:var(--white);}
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;}
+  .about-copy p{color:var(--muted);margin-top:16px;font-size:16px;}
+  .about-panel{
+    background:var(--navy-deep);border-radius:14px;padding:34px;color:var(--white);
+    position:relative;
+  }
+  .about-panel .row{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .about-panel .row:last-child{border-bottom:none;}
+  .about-panel .row .k{color:rgba(255,255,255,0.6);font-size:14px;}
+  .about-panel .row .v{font-weight:700;color:var(--teal);font-family:'Sora',sans-serif;}
+
+  /* CAREERS / INTERNSHIPS */
+  .careers{background:var(--bg);}
+  .notice{
+    background:#FFF7E6;border:1px solid #F2D794;color:#7A5C00;
+    padding:14px 18px;border-radius:8px;font-size:14px;margin:32px 0 8px;
+  }
+  .intern-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px;
+  }
+  .intern-card{
+    background:var(--white);border:1px solid var(--line);border-radius:12px;
+    padding:28px;display:flex;flex-direction:column;gap:14px;
+  }
+  .intern-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .intern-title{font-size:19px;font-weight:700;color:var(--navy-deep);}
+  .tag-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding:5px 10px;border-radius:20px;
+    background:#EAF1FD;color:var(--blue);border:1px solid #D3E4FB;
+  }
+  .tag.unpaid{background:#FDEAEA;color:#C0392B;border-color:#F7D0D0;}
+  .intern-card p.desc{color:var(--muted);font-size:14.5px;}
+  .intern-meta{display:flex;gap:22px;font-size:13px;color:var(--muted);margin-top:auto;flex-wrap:wrap;row-gap:8px;}
+  .tag.cert{background:#EAFBF3;color:#0E9F6E;border-color:#CDF2E1;}
+  .intern-meta b{color:var(--ink);}
+  .apply-btn{
+    margin-top:8px;display:inline-block;text-align:center;
+    background:var(--navy-deep);color:var(--white);padding:11px 0;border-radius:6px;
+    font-weight:600;font-size:14.5px;transition:background .2s;
+  }
+  .apply-btn:hover{background:var(--blue);}
+
+  /* LEADERSHIP */
+  .leadership{background:var(--white);}
+  .lead-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px;}
+  .lead-card{
+    background:var(--bg);border-radius:14px;padding:34px 26px;text-align:center;
+    border:1px solid var(--line);
+  }
+  .avatar{
+    width:84px;height:84px;border-radius:50%;margin:0 auto 20px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--navy),var(--blue));
+    color:var(--white);font-family:'Sora',sans-serif;font-weight:800;font-size:26px;
+  }
+  .lead-card h3{font-size:19px;color:var(--navy-deep);margin-bottom:4px;}
+  .lead-card .role{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:14px;}
+  .lead-card p{font-size:14px;color:var(--muted);}
+
+  /* RATINGS / COMPETITION COMPARISON */
+  .ratings{background:var(--white);}
+  .rating-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:56px;align-items:center;margin-top:48px;}
+  .rating-hero{
+    background:var(--navy-deep);border-radius:16px;padding:40px 34px;text-align:center;color:var(--white);
+  }
+  .rating-hero .score{font-family:'Sora',sans-serif;font-size:56px;font-weight:800;color:var(--teal);}
+  .rating-hero .stars{font-size:22px;color:var(--teal);letter-spacing:4px;margin:10px 0 8px;}
+  .rating-hero .sub{font-size:13.5px;color:rgba(255,255,255,0.65);}
+  .compare-list{display:flex;flex-direction:column;gap:20px;}
+  .compare-row{display:grid;grid-template-columns:180px 1fr 50px;align-items:center;gap:16px;}
+  .compare-row .name{font-size:14.5px;font-weight:600;color:var(--ink);}
+  .compare-row.us .name{color:var(--blue);}
+  .bar-track{background:var(--bg);border:1px solid var(--line);border-radius:20px;height:14px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--teal));}
+  .compare-row.competitor .bar-fill{background:#C7CEDA;}
+  .compare-row .score-val{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);text-align:right;}
+  .compare-row.us .score-val{color:var(--blue);font-weight:700;}
+  .ratings-note{font-size:12.5px;color:var(--muted);margin-top:22px;}
+
+  /* TESTIMONIAL PLACEHOLDER */
+  .testimonials{background:var(--bg);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+  .testi-card{
+    background:var(--white);border:1px dashed #C7CEDA;border-radius:12px;padding:26px;
+    font-size:14.5px;color:var(--muted);
+  }
+  .testi-card .who{margin-top:16px;font-weight:600;color:var(--ink);font-size:14px;}
+
+  /* CONTACT / FOOTER */
+  .cta-band{
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy));
+    color:var(--white);text-align:center;padding:80px 0;
+  }
+  .cta-band h2{font-size:32px;margin-bottom:14px;}
+  .cta-band p{color:rgba(255,255,255,0.75);margin-bottom:30px;}
+
+  footer{background:var(--navy-deep);color:rgba(255,255,255,0.6);padding:50px 0 26px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+  .footer-grid h4{color:var(--white);font-size:14px;margin-bottom:16px;}
+  .footer-grid li{margin-bottom:9px;font-size:14px;}
+  .footer-grid li a:hover{color:var(--teal);}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,0.1);padding-top:22px;
+    display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:860px){
+    .navlinks{position:fixed;top:64px;left:0;right:0;background:var(--navy-deep);
+      flex-direction:column;padding:20px 32px;display:none;gap:18px;}
+    .navlinks.open{display:flex;}
+    .navtoggle{display:block;background:none;border:none;color:var(--white);font-size:22px;cursor:pointer;}
+    .hero h1{font-size:38px;}
+    .hero p.lead{font-size:16px;}
+    .services-grid,.intern-grid,.lead-grid,.testi-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;gap:32px;}
+    .footer-grid{grid-template-columns:1fr;gap:24px;}
+    .stats{gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="https://axiontech.org" class="logo"><div class="mark">AX</div>Axion Tech</a>
+    <button class="navtoggle" id="navToggle">☰</button>
+    <ul class="navlinks" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#careers">Careers</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact" class="cta">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Consulting · IT Services · Digital Transformation</div>
+    <h1>Engineering the next chapter of <span>enterprise technology.</span></h1>
+    <p class="lead">Axion Tech partners with businesses to design, build, and run the cloud platforms, data systems, and software that power modern enterprises.</p>
+    <div class="hero-ctas">
+      <a href="#careers" class="btn btn-primary">Explore Internships</a>
+      <a href="#services" class="btn btn-ghost">Our Services</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">40+</div><div class="label">Enterprise Clients</div></div>
+      <div class="stat"><div class="num">6</div><div class="label">Global Practice Areas</div></div>
+      <div class="stat"><div class="num">2023</div><div class="label">Founded</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="section-tag">What We Do</div>
+    <div class="section-head">
+      <h2>Full-stack consulting, from strategy to code.</h2>
+      <p>We help organizations modernize infrastructure, adopt cloud-native practices, and build data-driven products.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>Cloud & DevOps</h3>
+        <p>AWS-first infrastructure, CI/CD pipelines, and site reliability engineering for scalable systems.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>Enterprise Software</h3>
+        <p>Java and full-stack application development for mission-critical business systems.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>Data & Analytics</h3>
+        <p>Data engineering, warehousing, and dashboards that turn raw data into decisions.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>Machine Learning</h3>
+        <p>Applied ML and AI solutions, from model development to production deployment.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>Digital Transformation</h3>
+        <p>Modernizing legacy systems and processes for a cloud-first, automation-driven future.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon"></div>
+        <h3>IT Consulting</h3>
+        <p>Strategic technology advisory to help leadership teams plan and prioritize with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="container about-grid">
+    <div class="about-copy">
+      <div class="section-tag">About Axion Tech</div>
+      <h2>Built to help businesses move faster on technology.</h2>
+      <p>Axion Tech is an IT consulting and digital transformation company. We work alongside our clients' teams to plan, build, and operate the technology that runs their business — from cloud infrastructure to customer-facing software.</p>
+      <p>Alongside client work, we run a structured internship program that gives students hands-on, real-project experience across cloud, software, and data roles.</p>
+    </div>
+    <div class="about-panel">
+      <div class="row"><div class="k">Headquarters</div><div class="v">India</div></div>
+      <div class="row"><div class="k">Focus Areas</div><div class="v">Cloud · Data · ML</div></div>
+      <div class="row"><div class="k">Internship Mode</div><div class="v">Remote / Hybrid</div></div>
+      <div class="row"><div class="k">Open Roles</div><div class="v">4 Tracks</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="careers" class="careers">
+  <div class="container">
+    <div class="section-tag">Careers · Internships</div>
+    <div class="section-head">
+      <h2>Start your career with real project experience.</h2>
+      <p>Our internship program is unpaid and designed for students who want hands-on exposure to live tools and workflows. Each track runs for a fixed duration and ends with a certificate of completion.</p>
+    </div>
+    <div class="notice">Note: All internships listed below are unpaid, 60-day project-based learning programs (not paid employment) and include a certificate of completion.</div>
+
+    <div class="intern-grid">
+
+      <div class="intern-card">
+        <div class="intern-top">
+          <div class="intern-title">DevOps Internship (AWS)</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">AWS</span><span class="tag">CI/CD</span><span class="tag">Docker</span><span class="tag unpaid">Unpaid</span><span class="tag cert">Certified</span>
+        </div>
+        <p class="desc">Work on cloud infrastructure tasks — EC2, S3, IAM basics, CI/CD pipelines, and containerization — under the guidance of our DevOps team.</p>
+        <div class="intern-meta"><span><b>Duration:</b> 60 days</span><span><b>Mode:</b> Remote</span><span><b>Certificate:</b> Yes</span></div>
+        <a href="mailto:admin@axiontech.org?subject=Application: DevOps Internship" class="apply-btn">Apply Now</a>
+      </div>
+
+      <div class="intern-card">
+        <div class="intern-top">
+          <div class="intern-title">Java Developer Internship</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">SQL</span><span class="tag unpaid">Unpaid</span><span class="tag cert">Certified</span>
+        </div>
+        <p class="desc">Build and debug backend modules for internal tools using Java and Spring Boot, alongside senior engineers.</p>
+        <div class="intern-meta"><span><b>Duration:</b> 60 days</span><span><b>Mode:</b> Remote / Hybrid</span><span><b>Certificate:</b> Yes</span></div>
+        <a href="mailto:admin@axiontech.org?subject=Application: Java Developer Internship" class="apply-btn">Apply Now</a>
+      </div>
+
+      <div class="intern-card">
+        <div class="intern-top">
+          <div class="intern-title">Data Science Internship</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">SQL</span><span class="tag unpaid">Unpaid</span><span class="tag cert">Certified</span>
+        </div>
+        <p class="desc">Analyze datasets, build reports, and support model-building workflows for internal and client-facing projects.</p>
+        <div class="intern-meta"><span><b>Duration:</b> 60 days</span><span><b>Mode:</b> Remote</span><span><b>Certificate:</b> Yes</span></div>
+        <a href="mailto:admin@axiontech.org?subject=Application: Data Science Internship" class="apply-btn">Apply Now</a>
+      </div>
+
+      <div class="intern-card">
+        <div class="intern-top">
+          <div class="intern-title">Machine Learning Internship</div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">ML Ops</span><span class="tag unpaid">Unpaid</span><span class="tag cert">Certified</span>
+        </div>
+        <p class="desc">Assist in training, evaluating, and deploying ML models, and contribute to internal ML tooling.</p>
+        <div class="intern-meta"><span><b>Duration:</b> 60 days</span><span><b>Mode:</b> Remote</span><span><b>Certificate:</b> Yes</span></div>
+        <a href="mailto:admin@axiontech.org?subject=Application: Machine Learning Internship" class="apply-btn">Apply Now</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="leadership" class="leadership">
+  <div class="container">
+    <div class="section-tag">Leadership</div>
+    <div class="section-head">
+      <h2>The people leading Axion Tech.</h2>
+    </div>
+    <div class="lead-grid">
+      <div class="lead-card">
+        <div class="avatar">SH</div>
+        <h3>Sumit Hadke</h3>
+        <div class="role">Chief Executive Officer</div>
+        <p>Sets the company's overall vision and strategy across consulting and delivery.</p>
+      </div>
+      <div class="lead-card">
+        <div class="avatar">AG</div>
+        <h3>Arjun Gahilot</h3>
+        <div class="role">Chief Operating Officer</div>
+        <p>Oversees day-to-day operations, delivery, and client engagement.</p>
+      </div>
+      <div class="lead-card">
+        <div class="avatar">AS</div>
+        <h3>Ashish Shegokar</h3>
+        <div class="role">HR Manager</div>
+        <p>Leads hiring, onboarding, and the internship program end to end.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ratings" id="reviews">
+  <div class="container">
+    <div class="section-tag">Client Reviews</div>
+    <div class="section-head">
+      <h2>How we compare on client satisfaction.</h2>
+      <p>Average client rating based on post-engagement feedback, benchmarked against typical ratings across the IT consulting industry.</p>
+    </div>
+    <div class="rating-grid">
+      <div class="rating-hero">
+        <div class="score">4.5<span style="font-size:22px;">/5</span></div>
+        <div class="stars">★★★★★</div>
+        <div class="sub">Average Axion Tech client rating</div>
+      </div>
+      <div class="compare-list">
+        <div class="compare-row us">
+          <div class="name">Axion Tech</div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div>
+          <div class="score-val">4.5</div>
+        </div>
+        <div class="compare-row competitor">
+          <div class="name">Industry Average</div>
+          <div class="bar-track"><div class="bar-fill" style="width:76%;"></div></div>
+          <div class="score-val">3.8</div>
+        </div>
+        <div class="compare-row competitor">
+          <div class="name">Other IT Consultancies</div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%;"></div></div>
+          <div class="score-val">3.5</div>
+        </div>
+      </div>
+    </div>
+    <p class="ratings-note">Ratings shown for comparison are indicative industry benchmarks and not attributed to any specific named competitor.</p>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <div class="section-tag">Intern Experiences</div>
+    <div class="section-head">
+      <h2>Add real feedback from your interns here.</h2>
+      <p>This section is set up as a template. Replace each card below with an actual quote once an intern has completed a program — see the note in chat for why these are left blank.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        "[Add intern's feedback about the DevOps internship here.]"
+        <div class="who">— [Intern name], DevOps Intern</div>
+      </div>
+      <div class="testi-card">
+        "[Add intern's feedback about the Java / Data Science internship here.]"
+        <div class="who">— [Intern name], Java Developer Intern</div>
+      </div>
+      <div class="testi-card">
+        "[Add intern's feedback about the ML internship here.]"
+        <div class="who">— [Intern name], ML Intern</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="container">
+    <h2>Ready to apply?</h2>
+    <p>Send your resume and preferred track to our HR team.</p>
+    <a href="mailto:admin@axiontech.org" class="btn btn-primary">Email admin@axiontech.org</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="color:white;"><div class="mark">AX</div>Axion Tech</div>
+        <p style="margin-top:14px;max-width:320px;font-size:14px;">IT consulting and digital transformation, built around cloud, data, and software engineering.</p>
+        <p style="margin-top:14px;font-size:14px;">
+          <a href="https://axiontech.org" style="color:rgba(255,255,255,0.75);">axiontech.org</a><br>
+          <a href="mailto:admin@axiontech.org" style="color:rgba(255,255,255,0.75);">admin@axiontech.org</a>
+        </p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Careers</h4>
+        <ul>
+          <li><a href="#careers">Internships</a></li>
+          <li><a href="mailto:admin@axiontech.org">Contact HR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Axion Tech. All rights reserved.</span>
+      <span>Nagpur, Maharashtra, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
